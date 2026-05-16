@@ -23,10 +23,13 @@ android {
 
     signingConfigs {
         create("release") {
+            val keystoreProps = file("../release.keystore.properties")
+                .takeIf { it.exists() }
+                ?.let { java.util.Properties().apply { load(it.inputStream()) } }
             storeFile = file("../release.keystore")
-            storePassword = "admin123"
-            keyAlias = "firstblood"
-            keyPassword = "admin123"
+            storePassword = keystoreProps?.getProperty("storePassword") ?: ""
+            keyAlias = keystoreProps?.getProperty("keyAlias") ?: ""
+            keyPassword = keystoreProps?.getProperty("keyPassword") ?: ""
         }
     }
 

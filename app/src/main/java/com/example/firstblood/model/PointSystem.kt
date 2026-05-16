@@ -19,8 +19,8 @@ data class UserAnswers(
     val rentYears: Int = 0,                   // 租房年限
     val education: String = "",               // juniorCollege / bachelor / master / doctor / other
     val age: Int = 0,                         // 年龄
-    val outsideUrbanResidence: Boolean = false, // 居住地在城六区外
-    val outsideUrbanWork: Boolean = false,      // 就业地在城六区外
+    val outsideUrbanResidenceYears: Int = 0, // 在城六区外居住年限
+    val outsideUrbanWorkYears: Int = 0,      // 在城六区外就业年限
     val highTax: Boolean = false,              // 近3年年纳税>=10万
     val hasHonors: Boolean = false,            // 省部级以上荣誉
     val detentionCount: Int = 0                // 行政拘留次数
@@ -86,26 +86,28 @@ object PointCalculator {
             )
         )
 
-        // 4. 年龄
+        // 4. 年龄（超过45岁每增1岁减4分）
         val (agePoints, ageDetail) = if (answers.age <= 45) {
             20.0 to "年龄 ${answers.age} 岁（≤45岁），积 20分"
         } else {
-            0.0 to "年龄 ${answers.age} 岁（>45岁），不计分"
+            val deducted = (answers.age - 45) * 4
+            val pts = (20.0 - deducted).coerceAtLeast(0.0)
+            pts to "年龄 ${answers.age} 岁（>45岁），每超1岁减4分，累计减${deducted}分，实积${pts}分"
         }
         breakdowns.add(PointBreakdown(PointCategory.AGE, agePoints, ageDetail))
 
-        // 5. 职住区域
+        // 5. 职住区域（按实际年限计算）
         var locationPoints = 0.0
         val locationParts = mutableListOf<String>()
-        if (answers.outsideUrbanResidence) {
-            val pts = minOf(2.0 * 3.0, 6.0) // max 6, 满3年
+        if (answers.outsideUrbanResidenceYears > 0) {
+            val pts = minOf(answers.outsideUrbanResidenceYears * 2.0, 6.0)
             locationPoints += pts
-            locationParts.add("居住转移 6分")
+            locationParts.add("居住转移 ${answers.outsideUrbanResidenceYears}年 × 2分/年 = ${pts}分")
         }
-        if (answers.outsideUrbanWork) {
-            val pts = minOf(1.0 * 3.0, 3.0) // max 3, 满3年
+        if (answers.outsideUrbanWorkYears > 0) {
+            val pts = minOf(answers.outsideUrbanWorkYears * 1.0, 3.0)
             locationPoints += pts
-            locationParts.add("就业转移 3分")
+            locationParts.add("就业转移 ${answers.outsideUrbanWorkYears}年 × 1分/年 = ${pts}分")
         }
         breakdowns.add(
             PointBreakdown(

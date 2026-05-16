@@ -97,13 +97,13 @@ class CalculatorViewModel : ViewModel() {
         currentStep = Step.LOCATION_RESIDENCE
     }
 
-    fun setResidenceLocation(outside: Boolean) {
-        answers = answers.copy(outsideUrbanResidence = outside)
+    fun setResidenceLocation(years: Int) {
+        answers = answers.copy(outsideUrbanResidenceYears = years)
         currentStep = Step.LOCATION_WORK
     }
 
-    fun setWorkLocation(outside: Boolean) {
-        answers = answers.copy(outsideUrbanWork = outside)
+    fun setWorkLocation(years: Int) {
+        answers = answers.copy(outsideUrbanWorkYears = years)
         currentStep = Step.TAX
     }
 

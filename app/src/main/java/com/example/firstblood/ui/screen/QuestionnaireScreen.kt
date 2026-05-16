@@ -25,8 +25,8 @@ fun QuestionnaireScreen(
     onRentYears: (Int) -> Unit,
     onEducation: (String) -> Unit,
     onAge: (Int) -> Unit,
-    onResidenceLocation: (Boolean) -> Unit,
-    onWorkLocation: (Boolean) -> Unit,
+    onResidenceLocation: (Int) -> Unit,
+    onWorkLocation: (Int) -> Unit,
     onTax: (Boolean) -> Unit,
     onHonors: (Boolean) -> Unit,
     onPenalty: (Int) -> Unit
@@ -146,15 +146,19 @@ fun QuestionnaireScreen(
                     onConfirm = onAge
                 )
 
-                Step.LOCATION_RESIDENCE -> YesNoQuestion(
+                Step.LOCATION_RESIDENCE -> NumberQuestion(
                     title = "居住区域",
-                    description = "您的居住地是否在城六区（东城、西城、朝阳、海淀、丰台、石景山）之外？",
+                    description = "您在城六区（东城、西城、朝阳、海淀、丰台、石景山）之外居住已有多少年？填0表示未转移",
+                    unit = "年",
+                    range = 0..10,
                     onConfirm = onResidenceLocation
                 )
 
-                Step.LOCATION_WORK -> YesNoQuestion(
+                Step.LOCATION_WORK -> NumberQuestion(
                     title = "就业区域",
-                    description = "您的就业地是否在城六区（东城、西城、朝阳、海淀、丰台、石景山）之外？",
+                    description = "您在城六区之外就业已有多少年？填0表示未转移",
+                    unit = "年",
+                    range = 0..10,
                     onConfirm = onWorkLocation
                 )
 
