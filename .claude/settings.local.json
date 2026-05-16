@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(java *)",
+      "Bash(where javac *)",
+      "Read(//c/Program Files/Android/Android Studio/jbr/bin/**)",
+      "Read(//c/Program Files/Android/Android Studio/jre/bin/**)",
+      "Bash(curl -s --connect-timeout 5 \"https://google.com\")",
+      "Bash(echo \"exit: $?\")",
+      "Bash(curl -sL --connect-timeout 15 \"https://objects.githubusercontent.com/github-production-release-asset-2e65be/689805232/9b190d48-31b8-49de-bcc7-fe6d7eb17f6a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20260426%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260426T054350Z&X-Amz-Expires=300&X-Amz-Signature=ab90b4d15e134148a04c25610356cd0bcabed3f6febbc4f6b4e3f55a557cffb1&X-Amz-SignedHeaders=host\" -o /tmp/jdk21.msi)",
+      "Read(//tmp/**)",
+      "Bash(curl -v --connect-timeout 10 \"https://github.com\")",
+      "Bash(curl -vL --connect-timeout 15 -o /tmp/jdk21_mirror.zip \"https://mirrors.huaweicloud.com/adoptium/21/jdk/x64/windows/OpenJDK21U-jdk_x64_windows_hotspot_21.0.2_13.zip\")",
+      "Bash(unzip -l /tmp/jdk21.zip)",
+      "Bash(mkdir -p \"E:/code/android app/first blood/app/src/main/java/com/example/firstblood/model\")",
+      "Bash(mkdir -p \"E:/code/android app/first blood/app/src/main/java/com/example/firstblood/viewmodel\")",
+      "Bash(mkdir -p \"E:/code/android app/first blood/app/src/main/java/com/example/firstblood/ui/screen\")",
+      "Bash(mkdir -p \"E:/code/android app/first blood/app/src/main/java/com/example/firstblood/ui/component\")",
+      "Bash(export JAVA_HOME=\"/c/jdk21/jdk-21.0.2+13\")",
+      "Bash(export PATH=\"$JAVA_HOME/bin:$PATH\")",
+      "Bash(./gradlew build *)",
+      "Bash(./gradlew assembleRelease)",
+      "Bash(gh --version)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)"
+    ]
+  }
+}
